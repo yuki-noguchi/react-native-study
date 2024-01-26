@@ -28,8 +28,16 @@
       "bundler": "metro"
     },
     "plugins": [
-      "expo-router"
+      [
+        "expo-router",
+        {
+          "root": "./src/app"
+        }
+      ]
     ],
-    "scheme": "your-app-scheme"
+    "scheme": "your-app-scheme",
+    "experiments": {
+      "typedRoutes": true
+    }
   }
 }
