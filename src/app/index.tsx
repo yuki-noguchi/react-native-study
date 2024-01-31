@@ -7,11 +7,28 @@ import { Controller, useForm } from 'react-hook-form';
 import { Alert, Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { z } from 'zod';
 
+z.setErrorMap((issue, ctx) => {
+  if (issue.code === 'too_small') {
+    if (issue.type === 'date') {
+      return {
+        message: `${new Date(issue.minimum as number).toLocaleString('ja')}以降の日付を選択してください。`,
+      };
+    }
+    if (issue.type === 'string') {
+      return {
+        message: `${issue.minimum}文字以上で入力してください。`,
+      };
+    }
+  }
+
+  return { message: ctx.defaultError };
+});
+
 const schema = z.object({
-  name: z.string().min(1, { message: '名前を入力してね' }),
+  name: z.string().min(1),
   birthdate: z
     .date()
-    .min(new Date('2024-01-01'), { message: '2024-01-01以降の日付を選択してください。' })
+    .min(new Date('2024-01-01'))
     .max(new Date('2024-02-10'), { message: '2024-02-10以前の日付を選択してください。' }),
 });
 
