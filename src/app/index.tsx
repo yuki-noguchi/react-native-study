@@ -7,6 +7,7 @@ export default function App() {
     <View style={styles.container}>
       <Text>index Page</Text>
       <Link href="/about">go to about</Link>
+      <Link href="/camera">go to camera</Link>
       <StatusBar style="auto" />
     </View>
   );
